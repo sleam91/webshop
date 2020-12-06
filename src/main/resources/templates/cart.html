@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="../static/css/style.css" th:href="@{/css/style.css}"
+	rel="stylesheet" />
+<title>Cart</title>
+</head>
+
+<body>
+	<h1>Your Cart</h1>
+	<section th:if="${!cart.isEmpty()}">
+		<table>
+			<thead>
+				<tr>
+					<th>Product</th>
+					<th colspan="2">Quantity</th>
+					<th>Price</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="orderLine : ${cart}">
+					<td th:text="${orderLine.product.name}" />
+					<td th:text="${orderLine.quantity}" />
+
+					<td class="add-remove-buttons">
+						<form action="#" th:action="@{/cart/add}" method="post">
+							<p>
+								<input type="hidden" th:value="${orderLine.product.id}"
+									name="productId" />
+								<input type="hidden" value="1"
+									name="quantity" />
+								<input type="submit" value="+">
+							</p>
+						</form>
+						<form action="#" th:action="@{/cart/remove}" method="post">
+							<p>
+								<input type="hidden" th:value="${orderLine.product.id}"
+									name="productId" />
+								<input type="submit" value="-">
+							</p>
+						</form>
+					</td>
+					<td
+						th:text="'$ ' + ${#numbers.formatDecimal(orderLine.product.price*orderLine.quantity,1,2,'POINT')}" />
+				</tr>
+			</tbody>
+
+		</table>
+		<p th:text="|Your total is $ ${cartTotal}|" />
+		<form action="#" th:action="@{/cart/place-order}" method="post">
+			<input type="submit" value="Place Order">
+		</form>
+	</section>
+	<br>
+	<p th:if="${cart.isEmpty()}">Your Cart is Empty!</p>
+	<a href="/store">Go back to store</a>
+</body>
+
+</html>

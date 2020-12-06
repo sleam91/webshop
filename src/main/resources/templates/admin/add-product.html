@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="../../static/css/style.css" th:href="@{/css/style.css}"
+	rel="stylesheet" />
+<title>Add Product</title>
+</head>
+
+<body>
+	<h1>Add Product</h1>
+
+	<form class="add-product" action="#" th:action="@{/admin/add-product}"
+		th:object="${productFormBean}" method="post">
+
+		<p>
+			<label for="name">Name:</label>
+			<input type="text" id="name" th:field="*{name}" required>
+		</p>
+		<p>
+			<label for="price">Price:</label>
+			<input type="number" id="price" min="0.01" th:field="*{price}" step=".01" required>
+		</p>
+		<p>
+			<label for="img">Image:</label>
+<!-- 			<input type="file" accept="image/*" id="img" th:field="*{img}" required> -->
+			<input type="text" id="img" th:field="*{img}" required>
+		</p>
+		<p>
+			<label for="category">Category:</label> 
+			<select name="category" id="category" th:field="*{category}" required>
+				<option th:each="category : ${categories}" th:text="${category.name}" th:value="${category.name}">Category</option>
+			</select>
+		</p>
+
+		<p>
+			<input type="submit" value="Add Product">
+		</p>
+	</form>
+	<br>
+	<a href="/admin">Back to Dashboard</a>
+</body>
+
+</html>

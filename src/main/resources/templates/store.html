@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="../static/css/style.css" th:href="@{/css/style.css}"
+	rel="stylesheet" />
+<title>Products</title>
+</head>
+
+<body>
+	<h1>Store</h1>
+	<a href="/cart">Show Cart</a>
+
+	<form action="#" th:action="@{/store/search}"
+		th:object="${searchFormBean}" method="post">
+		<p>
+			<label for="search-input">Search Products:</label>
+		</p>
+		<p>
+			<input type="text" id="search-input" th:field="*{query}" required>
+			<input type="submit" value="Search">
+		</p>
+	</form>
+
+	<a th:if="${#httpServletRequest.requestURI!='/store'}"
+		th:href=@{/store}>Go back</a>
+
+	<table th:if="${showCategories}">
+		<thead>
+			<tr>
+				<th>Click to view a Category</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="category : ${categories}">
+				<td>
+					<a th:href=@{|/store/${category.toLowerCase()}|}
+						th:text="${category}">Link </a>
+				</td>
+			</tr>
+		</tbody>
+
+	</table>
+	<h2 th:text="${resultsMessage}"></h2>
+	<section class="product-list">
+		<article class="product" th:each="product : ${products}">
+			<p th:text="${product.name}" />
+			<img alt="Product image"
+				th:src="@{/img/{imgFile}(imgFile=${product.img})}"
+				src="../static/img/debussy-preludes.jpg" />
+			<p th:text="|$ ${product.price}|" />
+			<form action="#" th:action="@{/cart/add}" method="post">
+				<p class="add-to-cart">
+					<input type="hidden" th:value="${product.id}" name="productId" />
+					<label for="quantity">Quantity:</label>
+					<input type="number" id="quantity" name="quantity" min="1" value="1" required>
+					<input type="submit" value="Add to Cart">
+				</p>
+			</form>
+		</article>
+	</section>
+
+</body>
+
+</html>

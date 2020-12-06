@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="../static/css/style.css" th:href="@{/css/style.css}"
+	rel="stylesheet" />
+<title>Register</title>
+</head>
+
+<body>
+	<h1>Webshop</h1>
+	<h2>Register</h2>
+	<form action="#" th:action="@{register}" th:object="${registerFormBean}"
+		method="post">
+		<p class="input">
+			Email:
+			<input class="extra-margin" type="email" th:field="*{email}" required pattern="\S+"
+				title="No white spaces.">
+		</p>
+		<p class="input">
+			Password:
+			<input class="extra-margin" type="password">
+		</p>
+		<p class="input">
+			Confirm Password:
+			<input class="extra-margin" type="password">
+			<input class="extra-margin" type="submit" value="Register">
+		</p>
+	</form>
+	<p th:text="${message}"> </p>
+	<a href="login">Go to Login</a>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="../static/css/style.css" th:href="@{/css/style.css}"
+	rel="stylesheet" />
+<title>Confirmation</title>
+</head>
+
+<body>
+	<h1>Order Confirmation</h1>
+	<h2>Your Order has been placed.</h2>
+	<h3>We will dispatch it very soon!</h3>
+		<section>
+		<table>
+			<thead>
+				<tr>
+					<th>Product</th>
+					<th>Quantity</th>
+					<th>Price</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="orderLine : ${cart}">
+					<td th:text="${orderLine.product.name}" />
+					<td th:text="${orderLine.quantity}" />
+					<td
+						th:text="'$ ' + ${#numbers.formatDecimal(orderLine.product.price*orderLine.quantity,1,2,'POINT')}" />
+				</tr>
+			</tbody>
+
+		</table>
+		<p th:text="|Your total is $ ${cartTotal}|" />
+	</section>
+	<br>
+	<a href="/store">Go back to store</a>
+</body>
+
+</html>

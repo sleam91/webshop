@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="../../static/css/style.css" th:href="@{/css/style.css}"
+	rel="stylesheet" />
+<title>Orders</title>
+</head>
+
+<body>
+	<h1>Add Product</h1>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Order Id</th>
+				<th>Date</th>
+				<th>Total</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="order: ${orders}">
+				<td th:text="${order.id}" />
+				<td
+					th:text="${#temporals.format(order.date, new java.util.Locale('en','SE'))}" />
+				<td
+					th:with="sum=${#aggregates.sum(order.orderLines.![product.price*quantity])}"
+					th:text="'$ '+${#numbers.formatDecimal(sum,1,2,'POINT')}" />
+				<td><span
+					th:text="${order.dispatched}?'Dispatched':'Not Dispatched'"></span>
+
+					<form th:if="${!order.dispatched}" action="#" th:action="@{orders}"
+						method="post">
+						<p>
+							<input type="hidden" th:value="${order.id}" name="id" />
+							<input type="submit" value="Dispatch Now">
+						</p>
+					</form></td>
+			</tr>
+		</tbody>
+	</table>
+	<p th:text=${error} />
+	<br>
+	<a href="/admin">Back to Dashboard</a>
+</body>
+
+</html>
