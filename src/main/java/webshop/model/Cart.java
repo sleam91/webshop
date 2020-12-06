@@ -38,7 +38,7 @@ public class Cart {
 				.reduce(0d, Double::sum));
 	}
 
-	private double roundDecimals(Double number) {
+	private double roundDecimals(double number) {
 		return Math.round(number * 100.0) / 100.0;
 	}
 
