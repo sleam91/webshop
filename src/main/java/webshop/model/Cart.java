@@ -13,14 +13,18 @@ public class Cart {
 	    orderLine.setQuantity(1);
 	    orderLines.add(orderLine);
 	} else {
-	    OrderLine orderLine = orderLines.stream().filter(o -> o.getProduct().getId() == product.getId()).findFirst()
+	    OrderLine orderLine = orderLines.stream()
+		    .filter(o -> o.getProduct().getId() == product.getId())
+		    .findFirst()
 		    .get();
 	    orderLine.setQuantity(orderLine.getQuantity() + 1);
 	}
     }
 
     public void removeFromCart(Product product) {
-	OrderLine orderLine = orderLines.stream().filter(o -> o.getProduct().getId() == product.getId()).findFirst()
+	OrderLine orderLine = orderLines.stream()
+		.filter(o -> o.getProduct().getId() == product.getId())
+		.findFirst()
 		.get();
 	if (orderLine.getQuantity() == 1) {
 	    orderLines.remove(orderLine);
@@ -31,7 +35,8 @@ public class Cart {
     }
 
     public double getTotal() {
-	return roundDecimals(orderLines.stream().map(o -> roundDecimals(o.getProduct().getPrice() * o.getQuantity()))
+	return roundDecimals(orderLines.stream()
+		.map(o -> roundDecimals(o.getProduct().getPrice() * o.getQuantity()))
 		.reduce(0d, Double::sum));
     }
 
