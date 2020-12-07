@@ -18,38 +18,36 @@ import webshop.service.ProductService;
 @Controller
 public class StoreWebController {
 
-	@Autowired
-	private ProductService productService;
+    @Autowired
+    private ProductService productService;
 
+    @GetMapping("/store")
+    public String viewStore(Model m) {
+	m.addAttribute("categories", productService.getCategories());
+	m.addAttribute("showCategories", true);
+	m.addAttribute("searchFormBean", new SearchFormBean());
+	return "store";
+    }
 
-	@GetMapping("/store")
-	public String viewStore(Model m) {
-		m.addAttribute("categories", productService.getCategories());
-		m.addAttribute("showCategories", true);
-		m.addAttribute("searchFormBean", new SearchFormBean());
-		return "store";
+    @PostMapping("/store/search")
+    public String searchProducts(@ModelAttribute("searchFormBean") SearchFormBean search, Model m) {
+	m.addAttribute("resultsMessage", "Search results for: " + search.getQuery());
+	m.addAttribute("products", productService.findProducts(search.getQuery()));
+	m.addAttribute("guessFormBean", new SearchFormBean());
+	return "store";
+    }
+
+    @GetMapping("/store/{category}")
+    public String showCategory(@PathVariable("category") String category, Model m) {
+	List<Product> products = productService.findCategory(category);
+	if (products.isEmpty()) {
+	    return "error/404";
 	}
 
-	@PostMapping("/store/search")
-	public String searchProducts(@ModelAttribute("searchFormBean") SearchFormBean search, Model m) {
-		m.addAttribute("resultsMessage", "Search results for: " + search.getQuery());
-		m.addAttribute("products", productService.findProducts(search.getQuery()));
-		m.addAttribute("guessFormBean", new SearchFormBean());
-		return "store";
-	}
-
-	@GetMapping("/store/{category}")
-	public String showCategory(@PathVariable("category") String category, Model m) {
-		List<Product> products = productService.findCategory(category);
-		if (products.isEmpty()) {
-			return "error/404";
-		}
-		
-		m.addAttribute("products", products);
-		m.addAttribute("resultsMessage", "Category: " + StringUtils.capitalize(category));
-		m.addAttribute("searchFormBean", new SearchFormBean());
-		return "store";
-	}
-
+	m.addAttribute("products", products);
+	m.addAttribute("resultsMessage", "Category: " + StringUtils.capitalize(category));
+	m.addAttribute("searchFormBean", new SearchFormBean());
+	return "store";
+    }
 
 }

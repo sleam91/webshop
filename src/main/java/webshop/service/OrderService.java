@@ -11,7 +11,7 @@ import org.springframework.web.context.annotation.SessionScope;
 
 import webshop.data.OrderRepository;
 import webshop.model.Cart;
-import webshop.model.Customer;
+import webshop.model.Person;
 import webshop.model.Order;
 import webshop.model.OrderLine;
 import webshop.model.Product;
@@ -20,38 +20,36 @@ import webshop.model.Product;
 @SessionScope
 public class OrderService {
 
-	@Autowired
-	private OrderRepository orderRepository;
-	private Cart cart = new Cart();
+    @Autowired
+    private OrderRepository orderRepository;
+    private Cart cart = new Cart();
 
-	public void placeOrder(Customer customer) {
-		Order order = new Order();
-		order.setDate(LocalDateTime.now());
-		order.setOrderLines(cart.getOrderLines());
-		order.setCustomer(customer);
-		orderRepository.save(order);
-	}	
-	
-	public void resetCart() {
-		cart.setOrderLines(new ArrayList<>());
-	}
+    public void placeOrder(Person person) {
+	Order order = new Order();
+	order.setDate(LocalDateTime.now());
+	order.setOrderLines(cart.getOrderLines());
+	order.setCustomer(person);
+	orderRepository.save(order);
+    }
 
-	public List<OrderLine> getCartContents() {
-		return Collections.unmodifiableList(cart.getOrderLines());
-	}
+    public void resetCart() {
+	cart.setOrderLines(new ArrayList<>());
+    }
 
-	public void addToCart(Product product) {
-		cart.addToCart(product);
-	}
+    public List<OrderLine> getCartContents() {
+	return Collections.unmodifiableList(cart.getOrderLines());
+    }
 
-	public void removeFromCart(Product product) {
-		cart.removeFromCart(product);
-	}
+    public void addToCart(Product product) {
+	cart.addToCart(product);
+    }
 
-	public double getTotal() {
-		return cart.getTotal();
-	}
+    public void removeFromCart(Product product) {
+	cart.removeFromCart(product);
+    }
 
-
+    public double getTotal() {
+	return cart.getTotal();
+    }
 
 }

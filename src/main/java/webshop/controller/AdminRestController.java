@@ -20,30 +20,30 @@ import webshop.service.AdminService;
 @RequestMapping("/admin/rest")
 public class AdminRestController {
 
-	@Autowired
-	AdminService adminService;
+    @Autowired
+    AdminService adminService;
 
-	@PostMapping("/products")
-	public ResponseEntity<String> addNewProduct(@RequestBody Product product) {
-		product.setCategory(adminService.getCategory(product.getCategory().getName()));
-		adminService.addNewProduct(product);
-		return ResponseEntity.accepted().body("Product added!");
+    @PostMapping("/products")
+    public ResponseEntity<String> addNewProduct(@RequestBody Product product) {
+	product.setCategory(adminService.getCategory(product.getCategory().getName()));
+	adminService.addNewProduct(product);
+	return ResponseEntity.accepted().body("Product added!");
+    }
+
+    @GetMapping("/orders")
+    public Stream<Order> getOrders() {
+	return adminService.getOrders().stream();
+    }
+
+    @PostMapping("/orders")
+    public ResponseEntity<String> distpatchOrder(@RequestParam int id) {
+	try {
+	    adminService.dispatchOrder(id);
+	    return ResponseEntity.accepted().body("Order dispatched!");
+	} catch (NoSuchElementException ex) {
+	    return ResponseEntity.status(404).body("Order does not exist!");
 	}
 
-	@GetMapping("/orders")
-	public Stream<Order> getOrders() {
-		return adminService.getOrders().stream();
-	}
-
-	@PostMapping("/orders")
-	public ResponseEntity<String> distpatchOrder(@RequestParam int id) {
-		try {
-			adminService.dispatchOrder(id);
-			return ResponseEntity.accepted().body("Order dispatched!");
-		} catch (NoSuchElementException ex) {
-			return ResponseEntity.status(404).body("Order does not exist!");
-		}
-
-	}
+    }
 
 }

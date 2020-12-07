@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -12,21 +13,27 @@
 <body>
 	<h1>Webshop</h1>
 	<h2>Login</h2>
+	
 	<form action="#" th:action="@{login}" th:object="${loginFormBean}"
 		method="post">
 		<p class="input">
 			Email:
-			<input class="extra-margin" type="email" th:field="*{email}" required pattern="\S+"
-				title="No white spaces.">
+			<input class="extra-margin" type="email" th:field="*{email}"
+				required pattern="\S+" title="No white spaces.">
 		</p>
 		<p class="input">
 			Password:
-			<input class="extra-margin" type="password">
+			<input class="extra-margin" type="password" th:field="*{password}"
+				required>
 			<input class="extra-margin" type="submit" value="Login">
 		</p>
 	</form>
 	
-	<p th:text="${message}"> </p>
+	<h3 th:if="${param.registered}">Registration successful!</h3>
+	<p th:unless="${param.error}" th:text="${message}"/>
+	<p class="error" th:if="${param.error}">Error, login failed. Wrong email or
+		password</p>
+
 	<a href="register">No account? Register here</a>
 </body>
 

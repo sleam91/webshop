@@ -21,15 +21,16 @@
 		</p>
 		<p class="input">
 			Password:
-			<input class="extra-margin" type="password">
+			<input class="extra-margin"  type="password" th:field="*{password}" required>
 		</p>
 		<p class="input">
 			Confirm Password:
-			<input class="extra-margin" type="password">
+			<input class="extra-margin" type="password" th:field="*{confirmPassword}" required>
 			<input class="extra-margin" type="submit" value="Register">
 		</p>
 	</form>
-	<p th:text="${message}"> </p>
+	<p th:if="${message}" th:text="${message}"/>
+	<p class="error" th:text="${error}"/>
 	<a href="login">Go to Login</a>
 </body>
 

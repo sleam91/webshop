@@ -12,62 +12,61 @@ import javax.persistence.Table;
 @Table(name = "products")
 public class Product {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-	private String name;
-	private double price;
-	private String img;
+    private String name;
+    private double price;
+    private String img;
 
-	@ManyToOne
-	@JoinColumn(name = "category")
-	private Category category;
+    @ManyToOne
+    @JoinColumn(name = "category")
+    private Category category;
 
-	public int getId() {
-		return id;
-	}
+    public int getId() {
+	return id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setId(int id) {
+	this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+	return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+	this.name = name;
+    }
 
-	public double getPrice() {
-		return price;
-	}
+    public double getPrice() {
+	return price;
+    }
 
-	public void setPrice(double price) {
-		this.price = price;
-	}
+    public void setPrice(double price) {
+	this.price = price;
+    }
 
-	public String getImg() {
-		return img;
-	}
+    public String getImg() {
+	return img;
+    }
 
-	public void setImg(String img) {
-		this.img = img;
-	}
+    public void setImg(String img) {
+	this.img = img;
+    }
 
-	public Category getCategory() {
-		return category;
-	}
+    public Category getCategory() {
+	return category;
+    }
 
-	public void setCategory(Category category) {
-		this.category = category;
-	}
+    public void setCategory(Category category) {
+	this.category = category;
+    }
 
-	@Override
-	public String toString() {
-		return name;
-	}
-
+    @Override
+    public String toString() {
+	return name;
+    }
 
 }

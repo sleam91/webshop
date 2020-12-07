@@ -18,59 +18,59 @@ import javax.persistence.Table;
 @Table(name = "orders")
 public class Order {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int id;
 
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.EAGER)
-	@JoinColumn(name = "`order`")
-	private List<OrderLine> orderLines;
+    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.EAGER)
+    @JoinColumn(name = "`order`")
+    private List<OrderLine> orderLines;
 
-	@ManyToOne
-	@JoinColumn(name = "customer")
-	private Customer customer;
+    @ManyToOne
+    @JoinColumn(name = "person")
+    private Person person;
 
-	private LocalDateTime date;
-	private boolean dispatched = false;
+    private LocalDateTime date;
+    private boolean dispatched = false;
 
-	public int getId() {
-		return id;
-	}
+    public int getId() {
+	return id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setId(int id) {
+	this.id = id;
+    }
 
-	public List<OrderLine> getOrderLines() {
-		return orderLines;
-	}
+    public List<OrderLine> getOrderLines() {
+	return orderLines;
+    }
 
-	public void setOrderLines(List<OrderLine> orderLines) {
-		this.orderLines = orderLines;
-	}
+    public void setOrderLines(List<OrderLine> orderLines) {
+	this.orderLines = orderLines;
+    }
 
-	public Customer getCustomer() {
-		return customer;
-	}
+    public Person getCustomer() {
+	return person;
+    }
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
+    public void setCustomer(Person person) {
+	this.person = person;
+    }
 
-	public LocalDateTime getDate() {
-		return date;
-	}
+    public LocalDateTime getDate() {
+	return date;
+    }
 
-	public void setDate(LocalDateTime date) {
-		this.date = date;
-	}
+    public void setDate(LocalDateTime date) {
+	this.date = date;
+    }
 
-	public boolean isDispatched() {
-		return dispatched;
-	}
+    public boolean isDispatched() {
+	return dispatched;
+    }
 
-	public void setDispatched(boolean dispatched) {
-		this.dispatched = dispatched;
-	}
+    public void setDispatched(boolean dispatched) {
+	this.dispatched = dispatched;
+    }
 
 }
