@@ -48,11 +48,11 @@ public class Role {
     }
     
     @JsonIgnore
-    public List<Person> getCustomers() {
+    public List<Person> getPersons() {
 	return persons;
     }
 
-    public void setCustomers(List<Person> persons) {
+    public void setPersons(List<Person> persons) {
 	this.persons = persons;
     }
 

@@ -21,8 +21,8 @@ public class LoginRegisterWebController {
     private PersonService personService;
 
     @GetMapping("/")
-    public String homeRedirect(Principal customer) {
-	if (Optional.ofNullable(customer).isEmpty()) {
+    public String homeRedirect(Principal person) {
+	if (Optional.ofNullable(person).isEmpty()) {
 	    return "redirect:/login";
 	} else {
 	    return "redirect:/store";

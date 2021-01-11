@@ -48,9 +48,9 @@ public class CartWebController {
     }
 
     @PostMapping("/cart/place-order")
-    public String placeOrder(Principal customer, Model m, RedirectAttributes attributes) {
+    public String placeOrder(Principal person, Model m, RedirectAttributes attributes) {
 	attributes.addFlashAttribute("orderPlaced", true);
-	orderService.placeOrder(personService.findByEmail(customer.getName()));
+	orderService.placeOrder(personService.findByEmail(person.getName()));
 	return "redirect:/confirmation";
     }
 

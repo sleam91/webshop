@@ -28,7 +28,7 @@ public class OrderService {
 	Order order = new Order();
 	order.setDate(LocalDateTime.now());
 	order.setOrderLines(cart.getOrderLines());
-	order.setCustomer(person);
+	order.setPerson(person);
 	orderRepository.save(order);
     }
 

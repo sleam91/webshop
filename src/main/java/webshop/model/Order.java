@@ -49,11 +49,11 @@ public class Order {
 	this.orderLines = orderLines;
     }
 
-    public Person getCustomer() {
+    public Person getPerson() {
 	return person;
     }
 
-    public void setCustomer(Person person) {
+    public void setPerson(Person person) {
 	this.person = person;
     }
 
